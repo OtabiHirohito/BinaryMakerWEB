@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ファイル ⇄ Base64・バイナリ変換</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<h1>ファイル ⇄ Base64・バイナリ変換</h1>
+<p class="lead">Zip・画像・動画・Officeファイルなど、あらゆるファイルを変換できます。<br>処理はすべてブラウザ内で行われ、外部には送信されません。</p>
+
+<div class="row">
+  <button class="btn" id="showAll" aria-pressed="false">全文表示: オフ</button>
+  <span class="note">オンにすると巨大な文字列もすべて表示します（動作が重くなります）</span>
+</div>
+
+<div class="tabs" role="tablist">
+  <button role="tab" id="t1" aria-selected="true" aria-controls="p1">ファイル → テキスト</button>
+  <button role="tab" id="t2" aria-selected="false" aria-controls="p2">テキスト → ファイル</button>
+</div>
+
+<section id="p1" role="tabpanel" aria-labelledby="t1">
+  <label class="drop" id="drop">
+    <input type="file" id="file">
+    <b>ファイルを選択、またはここにドロップ</b>
+    <span>どの形式でも可（サイズが大きいと時間がかかります）</span>
+  </label>
+  <div class="row">
+    <div class="seg" role="radiogroup" aria-label="出力形式">
+      <label><input type="radio" name="fmt" value="base64" checked>Base64</label>
+      <label><input type="radio" name="fmt" value="dataurl">Data URI</label>
+      <label><input type="radio" name="fmt" value="hex">16進数</label>
+      <label><input type="radio" name="fmt" value="bin">2進数</label>
+    </div>
+  </div>
+  <dl class="info" id="info" hidden></dl>
+  <textarea id="out" readonly spellcheck="false" placeholder="変換結果がここに表示されます" aria-label="変換結果"></textarea>
+  <div class="row">
+    <button class="btn pri" id="copy" disabled>コピー</button>
+    <button class="btn" id="saveTxt" disabled>テキストとして保存</button>
+  </div>
+  <div class="msg" id="msg1" role="status"></div>
+  <div class="prev" id="prev1"></div>
+</section>
+
+<section id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+  <div class="row">
+    <label for="dfmt">入力形式</label>
+    <select id="dfmt">
+      <option value="auto">自動判別</option>
+      <option value="base64">Base64 / Data URI</option>
+      <option value="hex">16進数</option>
+      <option value="bin">2進数</option>
+    </select>
+    <button class="btn" id="paste">ペースト</button>
+    <label class="btn">テキストファイルを読込<input type="file" id="txtfile" accept=".txt,.b64,.hex,.bin,text/*" hidden></label>
+  </div>
+  <textarea id="inp" spellcheck="false" placeholder="Base64、Data URI、16進数（48 65 6C…）、2進数（01001000…）を貼り付け" aria-label="変換元テキスト"></textarea>
+  <div class="row"><button class="btn pri" id="dec">ファイルに変換</button>
+    <button class="btn" id="clr">クリア</button></div>
+  <div class="msg" id="msg2" role="status"></div>
+  <dl class="info" id="info2" hidden></dl>
+  <div class="row" id="saveRow" hidden>
+    <input type="text" id="fname" aria-label="保存するファイル名" style="flex:1;min-width:160px">
+    <button class="btn pri" id="saveBin">ファイルを保存</button>
+  </div>
+  <p class="note" id="extNote" hidden>保存できる拡張子: gif png jpg jpeg webp mp4 webm txt json md docx pptx epub csv ttf html svg pdf xlsx zip。それ以外はこの環境では保存できません。</p>
+  <div class="prev" id="prev2"></div>
+  <div class="dump" id="dump" hidden></div>
+</section>
+  <div class="wrap">
+    <div class="top-bar">
+      <div class="tabs" id="tabs"></div>
+      <div class="lang-switch" id="langSwitch"></div>
+    </div>
+    <div id="toolContainer"></div>
+    <footer class="app-footer">
+      Created by 大度寛仁 /<a href="https://x.com/OtabiHirohito" target="_blank" rel="noopener noreferrer"> X (Twitter)</a>・<a href="https://github.com/OtabiHirohito" target="_blank" rel="noopener noreferrer">GitHub</a>・<a href="https://otabihirohito.github.io/DonationDirectory/">Donation</a>
+    </footer>
+  </div>
+  </main>
+<script src="script.js"></script>
+</body>
+</html>
